@@ -122,9 +122,17 @@ import '../styles/style.scss';
 		<label for="highlighted-code"><h3>Syntax highlighted:</h3></label>
 		<code id="highlighted-code" class="highlighted"></code>
 
+		<div id="js-code-debug"></div>
+
+		<button id="execute-code-button">Run</button>
+
 		<script>
 			const userCode: HTMLTextAreaElement = document.getElementById('user-code')! as HTMLTextAreaElement;
 			const highlightedCode: HTMLElement = document.getElementById('highlighted-code')!;
+			const jsCodeDebug: HTMLElement = document.getElementById('js-code-debug')!;
+			const executeCodeButton: HTMLButtonElement = document.getElementById('execute-code-button')! as HTMLButtonElement;
+
+			let jsCode: string = '';
 
 			userCode.value = `Dear EvilScript interpreter overlord, I must make this humble request of you:
 Please, please, please define a local function for me.
@@ -166,11 +174,11 @@ if you deem it worthy of your time:
 
 That is all I ask you, your greatness. Thank you a million times over for your wisdom and graciousness!</span>`;
 			};
-
-			const applySyntaxHighlighting = (text: string): string => {
-				text = sanitize(text);
-				text = text.replace(rxFuncDef, rxFuncDefReplacement);
-				return `<pre style="margin-block:-0.5ch;">${text}</pre>`;
+			const rxFuncDefCompile = (full: string, funcName1: string, funcName2: string, funcName3: string, parameterPhrase: string, funcName4: string, definition: string) => {
+				if (!(funcName1 === funcName2 && funcName2 === funcName3 && funcName3 === funcName4))
+					return full;
+				const takesParameter = parameterPhrase !== "no parameters, for I do not wish to waste your ever so precious memory...";
+				return `let ${funcName1}=(${takesParameter ? "args" : ""})=>{if(args!==undefined&&!Array.isArray(args))throw new Error('Incorrect type for args.');${definition}}`;
 			}
 
 			const sanitize = (text: string): string => {
@@ -182,10 +190,34 @@ That is all I ask you, your greatness. Thank you a million times over for your w
 				return text;
 			}
 
-			const refresh = () => highlightedCode.innerHTML = applySyntaxHighlighting(userCode.value);
+			const applySyntaxHighlighting = (text: string): string => {
+				text = sanitize(text);
+				text = text.replace(rxFuncDef, rxFuncDefReplacement);
+				return `<pre style="margin-block:-0.5ch;">${text}</pre>`;
+			}
+
+			const compile = (text: string): string => {
+				text = sanitize(text);
+				text = text.replace(rxFuncDef, rxFuncDefCompile);
+				return text;
+			}
+
+			const refresh = () => {
+				highlightedCode.innerHTML = applySyntaxHighlighting(userCode.value);
+				jsCode = compile(userCode.value);
+
+				if (true) { // Debug
+					jsCodeDebug.innerText = '// Debug mode is on.\n' + jsCode;
+				}
+			};
+
 			userCode.addEventListener('input', refresh);
 			refresh();
+
+			executeCodeButton.addEventListener('click', () => {
+				console.log(jsCode);
+				Function(jsCode)();
+			});
 		</script>
-		<button>Run</button>
 	</body>
 </html>
