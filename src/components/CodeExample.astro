@@ -1,0 +1,30 @@
+---
+import * as EvilScript from '../scripts/compiler';
+import * as EvilScript_FuncCall from '../scripts/snippets/function-call';
+import * as EvilScript_Func from '../scripts/snippets/function';
+import * as EvilScript_Type from '../scripts/snippets/type';
+
+interface SnippetExes {
+    [key: string]:{ ex: (...args: string[]) => string }
+}
+const snippets: SnippetExes = {
+    'function-call': { ex: EvilScript_FuncCall.ex },
+    'function': { ex: EvilScript_Func.ex },
+    'type': { ex: EvilScript_Type.ex },
+    
+};
+
+interface Props {
+    snippet: string;
+    names: string[];
+}
+const { snippet, names } = Astro.props;
+
+const exampleStr: string | undefined = snippets[snippet]?.ex(...names);
+if (!exampleStr) {
+    throw new Error(`Snippet ${snippet} not found`);
+}
+const exampleHTML: string = EvilScript.highlight(exampleStr).replace(/\n/g, '<br/>');
+---
+
+<code set:html={exampleHTML}></code>

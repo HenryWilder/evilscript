@@ -31,6 +31,14 @@ code {
     margin-block: 0.5rem;
     font-family: 'Azeret Mono', monospace;
     font-size: 14px;
+    overflow: hidden;
+    box-shadow: inset 0 0 3px 1px #000;
+
+    &:hover {
+        overflow: auto;
+    }
+
+    white-space: nowrap;
 
     .comment {
         color: forestgreen
@@ -93,7 +101,10 @@ code {
         border-radius: inherit;
     }
 
-    &>.log {}
+    &>.log {
+        background-color: #111;
+        color: white;
+    }
 
     &>.err {
         background-color: #200;

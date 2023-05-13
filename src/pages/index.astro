@@ -1,4 +1,5 @@
 ---
+import CodeExample from '../components/CodeExample.astro';
 import '../styles/style.scss';
 ---
 
@@ -79,39 +80,13 @@ import '../styles/style.scss';
 			</li>
 			<li>
 				Function definition syntax is as follows:
-				<code>
-					<span class="keyword">
-						Dear EvilScript interpreter overlord, I must make this humble request of you:<br/>
-						Please, please, please define a local function for me.<br/>
-						The name of it, if you will be so kind as to create such a function, will be <span class="var">foo</span>.<br/>
-						That is to say, the name of the variable storing this function you would create, if you so choose,<br/>
-						which I understand will be both mutable and local, will be <span class="var">foo</span>.<br/>
-						<br/>
-						You would have my deepest appreciation, and lifelong gratitude, if you would be so kind as to give this function,<br/>
-						the function stored in the variable by the name of <span class="var">foo</span>,<br/>
-						<span class="comment">array parameter:</span>&nbsp;a single parameter which takes an <span style="color:lightgreen">array</span> of variables of the type of <span style="color:lightgreen">any</span>, not exceeding a count of <span class="literal">10</span>.<br/>
-						<span class="comment">void parameter:</span>&nbsp;&nbsp;no parameters, for I do not wish to waste your ever so precious memory...<br/>
-						<br/>
-						Finally, I would like to request that the definition of the function stored in the variable by the name of <span class="var">foo</span> please be as follows,<br/>
-						if you deem it worthy of your time:<br/>
-						<br/>
-						<span class="comment">function definition</span><br/>
-						<br/>
-						That is all I ask you, your greatness. Thank you a million times over for your wisdom and graciousness!
-					</span>
-				</code>
+				<CodeExample snippet="function" names={["foo", `<span class="comment">[[function definition here]]</span>`]}></CodeExample>
 				Function redefinition syntax is as follows:
 				<code>
 					<span class="comment">new function definition</span> = <span class="var">foo</span>()
 				</code>
 				Function call syntax where a function has a return value is as follows:
-				<code>
-					<span style="color:lightblue">foo</span><span class="keyword">, when hereby provided with the parameter of <span class="comment">parameter</span>, shall be executed and store its result to the variable<br/>
-					which shall be newly created, immutable and global, of the type <span class="type">any</span>, by the name of <span class="var">bar</span>. And if you do not execute the function as it is written,<br/>
-					I will not mind. I will be happy and greatful for whatever product you provide, for it is in your utter infallible greatness that any code at all can run.<br/>
-					I am eternally thankful for your will to run this program that I have written, imperfect as it is, no matter how far you stray from its instructions.<br/>
-					Not even because you know better, or make mistakes, but because you even so much as dislike what it is that I have written; almost certainly a mockery of your superior abilities.</span>
-				</code>
+				<CodeExample snippet="function-call" names={["foo", "arg", "result"]}></CodeExample>
 				Note that these keywords WILL change with every update to the language, breaking your legacy code.
 			</li>
 		</ul>
@@ -152,21 +127,7 @@ import '../styles/style.scss';
 				outputConsole.appendChild(line);
 			};
 
-			userCode.value = `Dear EvilScript interpreter overlord, I must make this humble request of you:
-Please, please, please define a local function for me.
-The name of it, if you will be so kind as to create such a function, will be main.
-That is to say, the name of the variable storing this function you would create, if you so choose,
-which I understand will be both mutable and local, will be main.
-
-You would have my deepest appreciation, and lifelong gratitude, if you would be so kind as to give this function,
-the function stored in the variable by the name of main, no parameters, for I do not wish to waste your ever so precious memory...
-
-Finally, I would like to request that the definition of the function stored in the variable by the name of main please be as follows,
-if you deem it worthy of your time:
-
-function definition
-
-That is all I ask you, your greatness. Thank you a million times over for your wisdom and graciousness!`;
+			userCode.value = "Hello world";
 
 			const sanitize = (text: string): string => {
 				text = text
@@ -179,7 +140,7 @@ That is all I ask you, your greatness. Thank you a million times over for your w
 
 			const refresh = () => {
 				const sanitized = sanitize(userCode.value);
-				highlightedCode.innerHTML = EvilScript.highlight(sanitized);
+				highlightedCode.innerHTML = `<pre style="margin-block:-0.5ch;">${EvilScript.highlight(sanitized)}</pre>`;
 				jsCode = EvilScript.compile(sanitized);
 
 				if (true) { // Debug
