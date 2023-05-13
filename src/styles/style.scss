@@ -82,3 +82,22 @@ code {
     overflow: auto;
     white-space: nowrap;
 }
+
+#output-console {
+    background-color: #20202a;
+    padding: 0;
+    overflow: auto;
+
+    &>* {
+        padding: 0.5ch 1rem;
+        border-radius: inherit;
+    }
+
+    &>.log {}
+
+    &>.err {
+        background-color: #200;
+        color: #e55;
+        border-block: 1px solid #700;
+    }
+}
