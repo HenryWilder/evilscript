@@ -1,4 +1,5 @@
 ---
+import '../styles/style.scss';
 ---
 
 <html lang="en">
@@ -7,9 +8,157 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Homepage | EvilScript</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>EvilScript</h1>
+		<p>EvilScript is a programming language that is designed to be as evil as possible.</p>
+		<p>Some examples:</p>
+		<ul>
+			<li>
+				EvilScript is extremely verbose. It is designed to be as difficult to read as possible.
+			</li>
+			<li>
+				There is no branching. To replicate the functionality of an if statement,
+				you must perform both branches and dispose of the result of the branch you don't want.
+			</li>
+			<li>
+				There are no comments. All text is executed.
+			</li>
+			<li>
+				The script is executed backwards. The last line is executed first, and the first line is executed last.
+			</li>
+			<li>
+				The script is whitespace sensitive. If you have a space in the wrong place, your script will not work.
+			</li>
+			<li>
+				All variables are global and immutable. To change the value of a non-lambda variable, you must use a different name.
+			</li>
+			<li>
+				Variable names cannot contain numbers. Nor can they contain the letters <c>e</c>, <c>v</c>, <c>i</c>, nor <c>l</c>.<br/>
+				These letters are not reserved for the language itself, I just don't want you to use them.<br/>
+				They also cannot contain underscores, hyphens, nor spaces. They can only contain letters.<br/>
+				Specifically, lowercase letters. No capitals.<br/>
+				The valid symbols usable in variable names are: <c>a, b, c, d, f, g, h, j, k, m, n, o, p, q, r, s, t, u, w, x, y, z</c>.
+			</li>
+			<li>
+				There are no global functions. All functions are lambdas and must be assigned to a variable.
+			</li>
+			<li>
+				Functions are the only exception to the "all variables are global and immutable" rule.<br/>
+				Functions can be assigned to variables, and those variables can be changed.<br/>
+				And they are also local.
+			</li>
+			<li>
+				There are no for/while loops. To loop, you must use recursion.
+			</li>
+			<li>
+				Loops can only be exited by throwing an exception.<br/>
+				Your return must be contained in the exception.
+			</li>
+			<li>
+				There are no classes. To create an object, you must use a function that returns an array.
+			</li>
+			<li>
+				Arrays have a maximum depth of 3. You cannot have an array of arrays of arrays of arrays.
+			</li>
+			<li>
+				Arrays have a maximum length of 10. You cannot have an array of 11 or more items.<br/>
+				To have more than 10 items, you must use either an array of arrays or point to the next array as one of the elements of your array.
+			</li>
+			<li>
+				There is no dot operator. Dots are used to denote the end of a statement.<br/>
+				To use a decimal, you must use a comma.
+			</li>
+			<li>
+				Functions cannot take multiple arguments. To pass multiple arguments, you must use an array.
+			</li>
+			<li>
+				All variables are of type "any". There are no other types.<br/>
+				However, you must still preceed your variables with a type. That type is "any".
+			</li>
+			<li>
+				Function definition syntax is as follows:
+				<code>
+					<span class="keyword">
+						Dear EvilScript interpreter overlord, I must make this humble request of you:<br/>
+						Please, please, please define a local function for me.<br/>
+						The name of it, if you will be so kind as to create such a function, will be <span class="var">foo</span>.<br/>
+						That is to say, the name of the variable storing this function you would create, if you so choose,<br/>
+						which I understand will be both mutable and local, will be <span class="var">foo</span>.<br/>
+						<br/>
+						You would have my deepest appreciation, and lifelong gratitude, if you would be so kind as to give this function,<br/>
+						the function stored in the variable by the name of <span class="var">foo</span>,<br/>
+						<span class="comment">array parameter:</span>&nbsp;a single parameter which takes an <span style="color:lightgreen">array</span> of variables of the type of <span style="color:lightgreen">any</span>, not exceeding a count of <span class="literal">10</span>.<br/>
+						<span class="comment">void parameter:</span>&nbsp;&nbsp;no parameters, for I do not wish to waste your ever so precious memory...<br/>
+						<br/>
+						Finally, I would like to request that the definition of the function stored in the variable by the name of <span class="var">foo</span> please be as follows,<br/>
+						if you deem it worthy of your time:<br/>
+						<br/>
+						<span class="comment">function definition</span><br/>
+						<br/>
+						That is all I ask you, your greatness. Thank you a million times over for your wisdom and graciousness!
+					</span>
+				</code>
+				Function redefinition syntax is as follows:
+				<code>
+					<span class="comment">new function definition</span> = <span class="var">foo</span>()
+				</code>
+				Function call syntax where a function has a return value is as follows:
+				<code>
+					<span style="color:lightblue">foo</span><span class="keyword">, when hereby provided with the parameter of <span class="comment">parameter</span>, shall be executed and store its result to the variable<br/>
+					which shall be newly created, immutable and global, of the type <span class="type">any</span>, by the name of <span class="var">bar</span>. And if you do not execute the function as it is written,<br/>
+					I will not mind. I will be happy and greatful for whatever product you provide, for it is in your utter infallible greatness that any code at all can run.<br/>
+					I am eternally thankful for your will to run this program that I have written, imperfect as it is, no matter how far you stray from its instructions.<br/>
+					Not even because you know better, or make mistakes, but because you even so much as dislike what it is that I have written; almost certainly a mockery of your superior abilities.</span>
+				</code>
+				Note that these keywords WILL change with every update to the language, breaking your legacy code.
+			</li>
+		</ul>
+
+		<h3>Write your EvilScript here:</h3>
+		<textarea id="user-code" autocomplete="off" spellcheck="false"></textarea>
+
+		<h3>Syntax highlighted:</h3>
+		<code id="highlighted-code" class="highlighted"></code>
+
+		<script>
+			const userCode: HTMLTextAreaElement = document.getElementById('user-code') as HTMLTextAreaElement;
+			const highlightedCode: HTMLElement = document.getElementById('highlighted-code');
+
+			const rxFuncDef = /Dear EvilScript interpreter overlord, I must make this humble request of you:\nPlease, please, please define a local function for me\.\nThe name of it, if you will be so kind as to create such a function, will be ([a-z]+)\.\nThat is to say, the name of the variable storing this function you would create, if you so choose,\nwhich I understand will be both mutable and local, will be ([a-z]+)\.\n\nYou would have my deepest appreciation, and lifelong gratitude, if you would be so kind as to give this function,\nthe function stored in the variable by the name of ([a-z]+),\n((?:a single parameter which takes an array of variables of the type of any, not exceeding a count of 10\.)|(?:no parameters, for I do not wish to waste your ever so precious memory\.\.\.))\n\nFinally, I would like to request that the definition of the function stored in the variable by the name of ([a-z]+) please be as follows,\nif you deem it worthy of your time:\n\n(.*)\n\nThat is all I ask you, your greatness\. Thank you a million times over for your wisdom and graciousness!/g;
+			const rxFuncDefReplacement = (full: string, funcName1: string, funcName2: string, funcName3: string, parameterPhrase: string, funcName4: string, definition: string) => {
+				if (!(funcName1 === funcName2 && funcName2 === funcName3 && funcName3 === funcName4))
+					return full;
+				const takesParameter = parameterPhrase !== "no parameters, for I do not wish to waste your ever so precious memory...";
+				const parameterStr = takesParameter ? `a single parameter which takes an <span style="color:lightgreen">array</span> of variables of the type of <span style="color:lightgreen">any</span>, not exceeding a count of <span class="literal">10</span>.` : "no parameters, for I do not wish to waste your ever so precious memory...";
+				return `<span class="keyword">Dear EvilScript interpreter overlord, I must make this humble request of you:
+Please, please, please define a local function for me.
+The name of it, if you will be so kind as to create such a function, will be <span class="var">${funcName1}</span>.
+That is to say, the name of the variable storing this function you would create, if you so choose,
+which I understand will be both mutable and local, will be <span class="var">${funcName2}</span>.
+
+You would have my deepest appreciation, and lifelong gratitude, if you would be so kind as to give this function,
+the function stored in the variable by the name of <span class="var">${funcName3}</span>,
+${parameterStr}
+
+Finally, I would like to request that the definition of the function stored in the variable by the name of <span class="var">${funcName4}</span> please be as follows,
+if you deem it worthy of your time:
+
+</span>${definition}<span class="keyword">
+
+That is all I ask you, your greatness. Thank you a million times over for your wisdom and graciousness!</span>`;
+			};
+
+			const applySyntaxHighlighting = (text: string): string => {
+				text = text.replace(rxFuncDef, rxFuncDefReplacement);
+				return `<pre style="margin-block:-0.5ch;">${text}</pre>`;
+			}
+
+			userCode.addEventListener('input',() => {
+				highlightedCode.innerHTML = applySyntaxHighlighting(userCode.value);
+			});
+		</script>
+		<button>Run</button>
 	</body>
 </html>

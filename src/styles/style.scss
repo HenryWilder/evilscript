@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono&family=Glass+Antiqua&display=swap');
+
+body {
+    background-color: #111;
+    color: #eee;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    padding: 0;
+    max-width: min(15in, 100%);
+    margin: 0 auto;
+}
+
+li {
+    list-style: square;
+    margin-top: 1rem;
+}
+
+c {
+    color: #aaa;
+    background-color: #222;
+    padding: 0 0.5ch;
+    border-radius: 0.5ch;
+    font-family: 'Azeret Mono', monospace;
+}
+
+code {
+    background-color: #222;
+    padding: 1ch;
+    border-radius: 1ch;
+    display: block;
+    margin-block: 0.5rem;
+    font-family: 'Azeret Mono', monospace;
+    font-size: 14px;
+
+    .comment {
+        color: forestgreen
+    }
+
+    .keyword {
+        color: dodgerblue
+    }
+
+    .var {
+        color: lightblue
+    }
+
+    .type {
+        color: lightgreen
+    }
+
+    .literal {
+        color: lightcoral
+    }
+}
+
+#user-code {
+    margin-block: 0.5rem;
+    padding: 1ch;
+    border-radius: 1ch;
+    border-bottom-right-radius: 2px;
+    font-family: 'Glass Antiqua', cursive;
+    font-size: 18px;
+    background-color: #000;
+    color: #abf;
+    min-height: 10rem;
+    resize: vertical;
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+    border: none;
+    white-space: nowrap;
+
+    &:focus {
+        outline: 2px solid dodgerblue;
+    }
+}
+
+#highlighted-code {
+    min-height: 10rem;
+    width: 100%;
+    max-height: 7in;
+    overflow: auto;
+    white-space: nowrap;
+}
