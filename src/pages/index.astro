@@ -107,7 +107,7 @@ import '../styles/style.scss';
 			import * as EvilScript from '../scripts/compiler';
 
 			const testStr: string = "This is a test where 'I like apples' has the word 'apples' replaced with 'oranges'. I like apples. I like apples.";
-			console.log("Modified:", testStr.replaceWithin(/I like (apples)/g, (_: string) => { return "oranges"; }));
+			console.log("Modified:", testStr.replaceWithin(/I like (apples)/g, ['oranges']));
 			console.log("Original:", testStr);
 
 			const userCode: HTMLTextAreaElement = document.getElementById('user-code')! as HTMLTextAreaElement;

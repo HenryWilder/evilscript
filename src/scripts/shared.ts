@@ -7,7 +7,7 @@ declare global {
         before: (substring: string) => string;
         after: (substring: string) => string;
         between: (start: string, end: string) => string;
-        replaceWithin: (rx: RegExp, ...replacements: replacementType[]) => string;
+        replaceWithin: (within: RegExp, replacements: replacementType[]) => string;
     }
 }
 
@@ -35,10 +35,10 @@ declare global {
 /**
  * Regex replaces for each group in the regex.
  */
-(String.prototype as any).replaceWithin = function (rx: RegExp, ...replacements: replacementType[]): string {
+(String.prototype as any).replaceWithin = function (within: RegExp, replacements: replacementType[]): string {
     const _this: string = this as string;
     let result: string = _this;
-    const segments: RegExpMatchArray[] = Array.from(result.matchAll(rx));
+    const segments: RegExpMatchArray[] = Array.from(result.matchAll(within));
     console.log(segments);
     let lastEnd: number = 0;
     let sectioned: string[] = [];
@@ -46,7 +46,19 @@ declare global {
         const start: number = segment.index!;
         const end: number = start + segment[0].length;
         sectioned.push(_this.substring(lastEnd, start));
-        sectioned.push(segment[0]);
+        let segmentCapture = _this.substring(start, end);
+        console.log(segmentCapture);
+        const captureGroups: string[] = segmentCapture.split(within).filter(s => s !== '');
+        console.log(captureGroups);
+        for (let i = 0; i < captureGroups.length; i++) {
+            const group: string = captureGroups[i]!;
+            const replacement: replacementType = replacements[i]!;
+            console.log(group, replacement)
+            segmentCapture = (typeof replacement === 'string')
+                ? segmentCapture.replace(group, replacement)
+                : segmentCapture.replace(group, replacement);
+        }
+        sectioned.push(segmentCapture);
         lastEnd = end;
     }
     sectioned.push(_this.substring(lastEnd));
